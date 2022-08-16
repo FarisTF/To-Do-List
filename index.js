@@ -42,38 +42,39 @@ fetch('https://api-todolist-faris.herokuapp.com/')
 
 function addTodo(e) {
   e.preventDefault()
-  const untukKeDb = todoInput.value
+  console.log(typeof todoInput.value)
+  if (!(todoInput.value==="")){
+    // post request
+    fetch('https://api-todolist-faris.herokuapp.com/', {
+      method:'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type':'application/json'
+      },
+      body:JSON.stringify({kegiatan:todoInput.value, done:false})
+    })
+    .then((res) => res.json())
+    .then((data) => {console.log(data)
 
-  // post request
-  fetch('https://api-todolist-faris.herokuapp.com/', {
-    method:'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-type':'application/json'
-    },
-    body:JSON.stringify({kegiatan:untukKeDb, done:false})
-  })
-  .then((res) => res.json())
-  .then((data) => {console.log(data)
-
-    // ngubah dom dlu
-    const todoDiv = document.createElement("div")
-    todoDiv.classList.add('todo')
-    
-    const todo = document.createElement("li")
-    todo.id = String(data._id)
-    todo.textContent = todoInput.value
-    todoDiv.appendChild(todo)
-    
-    const deleteButton = document.createElement("button")
-    deleteButton.classList.add("delete-btn")
-    deleteButton.textContent = "V"
-    todoDiv.appendChild(deleteButton)
-    
-    todoList.appendChild(todoDiv)
-    
-    todoInput.value = ""
-  })
+      // ngubah dom dlu
+      const todoDiv = document.createElement("div")
+      todoDiv.classList.add('todo')
+      
+      const todo = document.createElement("li")
+      todo.id = String(data._id)
+      todo.textContent = todoInput.value
+      todoDiv.appendChild(todo)
+      
+      const deleteButton = document.createElement("button")
+      deleteButton.classList.add("delete-btn")
+      deleteButton.textContent = "V"
+      todoDiv.appendChild(deleteButton)
+      
+      todoList.appendChild(todoDiv)
+      
+      todoInput.value = ""
+    })
+  }
 }
 
 function deleteTodo(e) {
