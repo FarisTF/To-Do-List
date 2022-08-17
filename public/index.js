@@ -1,9 +1,10 @@
 const todoInput = document.querySelector("#todo-input")
-const todoButton = document.querySelector(".add-btn")
 const todoList = document.querySelector(".todo-list")
-console.log(todoList)
 const comList = document.querySelector(".com-list")
-console.log(comList)
+
+const todoButton = document.querySelector(".add-btn")
+const completeButton = document.querySelector('.complete-btn')
+const removeButton = document.querySelector('.remove-btn')
 
 let id,kegiatan,done;
 
@@ -50,7 +51,6 @@ fetch('https://todolistfaris.herokuapp.com/api')
 
 function addTodo(e) {
   e.preventDefault()
-  console.log(typeof todoInput.value)
   if (!(todoInput.value==="")){
     // post request
     fetch('https://todolistfaris.herokuapp.com/api', {
@@ -118,7 +118,7 @@ function completeTodo(e) {
 
 function removeTodo(e) {
   const item = e.target
-  if (item.classList[0] === "remove-btn"){
+  if (item.classList[0] === "remove-btn"){    
     const buangDB = item.parentElement.querySelector("li")
 
     // delete request
@@ -133,7 +133,7 @@ function removeTodo(e) {
     parent.remove();
   }
 }
-
+ 
 todoButton.addEventListener('click', addTodo)
 todoList.addEventListener('click', completeTodo)
 comList.addEventListener('click', removeTodo)
