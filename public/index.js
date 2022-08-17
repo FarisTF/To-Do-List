@@ -7,7 +7,7 @@ console.log(comList)
 
 let id,kegiatan,done;
 
-fetch('https://api-todolist-faris.herokuapp.com/api')
+fetch('https://todolistfaris.herokuapp.com/api')
 .then((res) => res.json())
 .then((data) => {console.log(data)
   data.forEach(function(post){
@@ -53,7 +53,7 @@ function addTodo(e) {
   console.log(typeof todoInput.value)
   if (!(todoInput.value==="")){
     // post request
-    fetch('https://api-todolist-faris.herokuapp.com/api', {
+    fetch('https://todolistfaris.herokuapp.com/api', {
       method:'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -100,7 +100,7 @@ function completeTodo(e) {
     item.remove();
 
     // patch request
-    fetch('https://api-todolist-faris.herokuapp.com/api/'+buangDB.id, {
+    fetch('https://todolistfaris.herokuapp.com/api/'+buangDB.id, {
     method: 'PATCH',
     body: JSON.stringify({
       kegiatan: buangDB.textContent,
@@ -122,7 +122,7 @@ function removeTodo(e) {
     const buangDB = item.parentElement.querySelector("li")
 
     // delete request
-    fetch('https://api-todolist-faris.herokuapp.com/api/'+buangDB.id, {
+    fetch('https://todolistfaris.herokuapp.com/api/'+buangDB.id, {
     method: 'DELETE'
   })
     .then((response) => response)
