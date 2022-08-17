@@ -64,7 +64,7 @@ function addTodo(e) {
     .then((res) => res.json())
     .then((data) => {console.log(data)
 
-      // ngubah dom dlu
+      // ngubah dom
       const todoDiv = document.createElement("div")
       todoDiv.classList.add('todo')
       
