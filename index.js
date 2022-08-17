@@ -1,143 +1,102 @@
-const todoInput = document.querySelector("#todo-input")
-const todoButton = document.querySelector(".add-btn")
-const todoList = document.querySelector(".todo-list")
-console.log(todoList)
-const comList = document.querySelector(".com-list")
-console.log(comList)
+require("dotenv").config(); 
+const express = require('express');
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
+const cors = require('cors');
 
-let id,kegiatan,done;
-
-fetch('https://api-todolist-faris.herokuapp.com/')
-.then((res) => res.json())
-.then((data) => {console.log(data)
-  data.forEach(function(post){
-    if (post.done == false){
-      const todoDiv = document.createElement("div")
-      todoDiv.classList.add('todo')
-
-      const todo = document.createElement("li")
-      todo.id = String(post._id)
-      todo.textContent = post.kegiatan
-      todoDiv.appendChild(todo)
-
-      const deleteButton = document.createElement("button")
-      deleteButton.classList.add("complete-btn")
-      deleteButton.textContent = "V"
-      todoDiv.appendChild(deleteButton)
-
-      todoList.appendChild(todoDiv)
-
-      todoInput.value = ""
-    } 
-    else {
-      const todoDiv = document.createElement("div")
-      todoDiv.classList.add('todo')
-
-      const todo = document.createElement("li")
-      todo.id = String(post._id)
-      todo.textContent = post.kegiatan
-      todoDiv.appendChild(todo)
-
-      const removeButton = document.createElement("button")
-      removeButton.classList.add("remove-btn")
-      removeButton.textContent = "X"
-      todoDiv.appendChild(removeButton)
-
-      document.querySelector(".com-list").appendChild(todoDiv);
+mongoose.connect(
+    process.env.MONGODB_URI, 
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     }
-  })
+);
+
+const KegiatanSchema = new mongoose.Schema({
+    kegiatan: String,
+    done : Boolean
+  }, {
+    versionKey: false
+});
+
+const Kegiatan = mongoose.model('Kegiatan', KegiatanSchema, 'kegiatan');
+
+const app = express()
+
+const PORT = process.env.PORT || 3000
+
+app.use(jsonParser)
+app.use(cors());
+app.use(express.static('public'));
+
+// Balikin file html dkk
+app.get("/", async (request, response) => {
+  const item = await Kegiatan.find({});
+
+  try {
+    response.send(item);
+    console.log("get berhasil yey")
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+// Ambil semua kegiatan
+app.get("/api", async (request, response) => {
+    const item = await Kegiatan.find({});
+  
+    try {
+      response.send(item);
+      console.log("get berhasil yey")
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  });
+
+// Tambah kegiatan
+app.post("/api", async (request, response) => {
+    const item = new Kegiatan(request.body);
+    console.log(request.body)
+    console.log(item)
+  
+    try {
+      await item.save();
+      response.send(item);
+      console.log("kegiatan berhasil ditambahkan")
+    } catch (error) {
+      response.status(500).send(error);
+    }
+});
+
+// Update kegiatan
+app.patch('/api/:id', async (request, response) => {
+    try {
+        const id = request.params.id;
+        const updatedData = request.body;
+        const options = { new: true };
+
+        const result = await Kegiatan.findByIdAndUpdate(
+            id, updatedData, options
+        )
+
+        response.send(result)
+    }
+    catch (error) {
+        response.status(400).json({ message: error.message })
+    }
 })
 
-function addTodo(e) {
-  e.preventDefault()
-  console.log(typeof todoInput.value)
-  if (!(todoInput.value==="")){
-    // post request
-    fetch('https://api-todolist-faris.herokuapp.com/', {
-      method:'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-type':'application/json'
-      },
-      body:JSON.stringify({kegiatan:todoInput.value, done:false})
-    })
-    .then((res) => res.json())
-    .then((data) => {console.log(data)
-
-      // ngubah dom dlu
-      const todoDiv = document.createElement("div")
-      todoDiv.classList.add('todo')
-      
-      const todo = document.createElement("li")
-      todo.id = String(data._id)
-      todo.textContent = todoInput.value
-      todoDiv.appendChild(todo)
-      
-      const deleteButton = document.createElement("button")
-      deleteButton.classList.add("complete-btn")
-      deleteButton.textContent = "V"
-      todoDiv.appendChild(deleteButton)
-      
-      todoList.appendChild(todoDiv)
-      
-      todoInput.value = ""
-    })
+// Delete kegiatan
+app.delete('/api/:id', async (request, response) => {
+  try {
+      const id = request.params.id;
+      const data = await Kegiatan.findByIdAndDelete(id)
+      response.send(`Document with ${data.kegiatan} has been deleted..`)
   }
-}
-
-function completeTodo(e) {
-  // ngubah dom dlu
-  const item = e.target
-  if (item.classList[0] === "complete-btn"){
-    const buangDB = item.parentElement.querySelector("li")
-    const parent = item.parentElement
-    const removeButton = document.createElement("button")
-    removeButton.classList.add("remove-btn")
-    removeButton.textContent = "X"
-    parent.appendChild(removeButton)
-    
-    document.querySelector(".com-list").appendChild(parent);
-    item.remove();
-
-    // patch request
-    fetch('https://api-todolist-faris.herokuapp.com/'+buangDB.id, {
-    method: 'PATCH',
-    body: JSON.stringify({
-      kegiatan: buangDB.textContent,
-      done: true
-    }),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  })
-    .then((response) => response.json())
-    .then((json) => {console.log(json)
-    });
+  catch (error) {
+      response.status(400).json({ message: error.message })
   }
-}
+})
 
-function removeTodo(e) {
-  const item = e.target
-  if (item.classList[0] === "remove-btn"){
-    const buangDB = item.parentElement.querySelector("li")
-
-    // delete request
-    fetch('https://api-todolist-faris.herokuapp.com/'+buangDB.id, {
-    method: 'DELETE'
-  })
-    .then((response) => response)
-    .then((HTML) => {console.log(HTML)
-    });
-    
-    const parent = item.parentElement
-    parent.remove();
-  }
-}
-
-todoButton.addEventListener('click', addTodo)
-todoList.addEventListener('click', completeTodo)
-comList.addEventListener('click', removeTodo)
-
-
-
-
+app.listen(PORT, () => console.log(`Server is running at ${PORT}`));
