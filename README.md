@@ -2,6 +2,6 @@
 
 https://todolistfaris.herokuapp.com
 
-Vanilla html, css, and js for the frontend
-Node with express for the backend
-MongoDB for the database
+<p>Vanilla html, css, and js for the frontend</p>
+<p>Node with express for the backend</p>
+<p>MongoDB for the database</p>
