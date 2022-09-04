@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Codystar');
+
 * {
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.5;
 }
 
 html {
@@ -30,8 +35,10 @@ header {
 }
 
 h1 {
-    font-size: 80px;
+    font-size: 105px;
+    font-weight: 900;
     text-align: center;
+    line-height: 1;
     color: #3de2ff;
     -webkit-animation: glow 1s ease-in-out infinite alternate;
     -moz-animation: glow 1s ease-in-out infinite alternate;
@@ -84,9 +91,9 @@ h2 {
 }
 
 #todo-input {
-    flex: 1 1 0%;
+    flex: 1 1 auto;
     background-color: #1e1e1e99;
-    padding: 0px 0px 0px 10%;
+    padding: 0% 0% 0% 10%;
     border-radius: 30px;
     margin-right: 2%;
     font-size: 18px;
@@ -201,6 +208,7 @@ h2 {
     font-weight: 1000;
     box-shadow: 0 0 20px #669dffc9;
     margin-right: 8px;
+    margin-left: 20px;
 }
 
 .complete-btn:: before,
@@ -268,11 +276,34 @@ h2 {
     h1 {
         font-size: 5em;
         text-align: center;
+        line-height: 1;
         color: #3de2ff;
         -webkit-animation: glow 1s ease-in-out infinite alternate;
         -moz-animation: glow 1s ease-in-out infinite alternate;
         animation: glow 1s ease-in-out infinite alternate;
         margin-top: 20%;
     }
+
+    #todo-input {
+        flex: 1 1 100em;
+        background-color: #1e1e1e99;
+        padding: 0% 0% 0% 10%;
+        border-radius: 2em;
+        margin-right: 2%;
+        font-size: 1em;
+        border: solid;
+        color: #e54ada;
+        border-color: #ffffff99;
+        border-width: 0.1em;
+        box-shadow: 0 0 10em #ffffff59;
+    }
+
+    ::placeholder {
+        color: #ef7bec99;
+        letter-spacing: 0.1em;
+    }
+
+
+    
     
   }
