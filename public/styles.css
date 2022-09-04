@@ -293,13 +293,18 @@ h2 {
         background-color: #1e1e1e99;
         padding: 0% 0% 0% 8%;
         border-radius: 2em;
-        margin-right: 2%;
+        margin-right: 0%;
+        margin-left: -4.5%;
         font-size: 1em;
         border: solid;
         color: #e54ada;
         border-color: #ffffff99;
         border-width: 0.1em;
         box-shadow: 0 0 10em #ffffff59;
+    }
+
+    .add-btn{
+        margin-right: -4%;
     }
 
     ::placeholder {
