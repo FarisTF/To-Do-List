@@ -13,8 +13,15 @@ html {
     min-height: 100%;
 }
 
-.container {
+body{
     background-image: linear-gradient(#000f5a, #590758);
+}
+
+.container {
+    background-image: url('images/kotaWeb.jpg');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
     min-height: 100vh;
     width: 100%;
     display: flex;
@@ -24,6 +31,7 @@ html {
 }
 
 .card {
+    
     background-color: none;
     height: 85%;
     width: 47%;
@@ -117,7 +125,7 @@ h2 {
     transition: 0.4s ease-in;
     z-index: 1;
     padding: 10px 25px 12px 25px;
-    background-color: #b73bcc99;
+    background-color: #971bace9;
     border-radius: 21px;
     color: white;
     font-size: 28px;
@@ -172,7 +180,7 @@ h2 {
     color: white;
     padding: 15px 5px 15px 25px;
     margin: 10px 0;
-    background-color: #b73bcc59;
+    background-color: #9d13b5a3;
     border-radius: 18px;
     font-weight: 500;
     font-size: 20px;
@@ -188,7 +196,7 @@ h2 {
     color: white;
     padding: 26px 5px 26px 25px;
     margin: 10px 0;
-    background-color: #b73bcc59;
+    background-color: #9d13b5a3;
     border-radius: 18px;
     font-weight: 500;
     font-size: 20px;
@@ -258,7 +266,7 @@ h2 {
 }
 
 #main-footer{
-	background: rgb(9, 2, 40);
+	background: rgb(7, 19, 41);
 	color:rgb(178, 178, 178);
 	text-align: center;
 	padding:20px;
@@ -272,9 +280,16 @@ h2 {
         font-size: 14px;
     }
 
-    .container {
-        font-size: 14px;
+    body{
         background-image: linear-gradient(#011b74, #590158);
+    }
+
+    .container {
+        background-image: url('images/kotaMobile.jpg');
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;
+        font-size: 14px;
         min-height: 100vh;
         width: 100%;
         display: flex;
