@@ -289,8 +289,9 @@ h2 {
 
     #todo-input {
         flex: 1 1 100em;
+        width: 0%;
         background-color: #1e1e1e99;
-        padding: 0% 0% 0% 10%;
+        padding: 0% 0% 0% 8%;
         border-radius: 2em;
         margin-right: 2%;
         font-size: 1em;
