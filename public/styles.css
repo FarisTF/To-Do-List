@@ -20,6 +20,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 30px;
 }
 
 .card {
@@ -255,6 +256,16 @@ h2 {
     box-shadow: 0 0 5px #ffb676, 0 0 25px #ffb676, 0 0 50px #ffb676,
         0 0 80px #ffb676;
 }
+
+#main-footer{
+	background: rgb(9, 2, 40);
+	color:#fff;
+	text-align: center;
+	padding:20px;
+    border: none;
+}
+
+
 
 @media screen and (max-width: 800px) {
     *{
