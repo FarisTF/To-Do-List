@@ -86,9 +86,9 @@ h2 {
 #todo-input {
     flex: 1 1 0%;
     background-color: #1e1e1e99;
-    padding: 0px 0px 0px 20px;
+    padding: 0px 0px 0px 10%;
     border-radius: 30px;
-    margin-right: 15px;
+    margin-right: 2%;
     font-size: 18px;
     border: solid;
     color: #e54ada;
@@ -231,6 +231,7 @@ h2 {
     font-weight: 1000;
     box-shadow: 0 0 20px #de6b05;
     margin-right: 8px;
+    margin-left: 20px;
 }
 
 .remove-btn:: before,
@@ -260,7 +261,7 @@ h2 {
     .card {
         background-color: none;
         height: 85%;
-        width: 80%;
+        width: 70%;
         border-radius: 20px;
     }
 
@@ -273,4 +274,5 @@ h2 {
         animation: glow 1s ease-in-out infinite alternate;
         margin-top: 20%;
     }
+    
   }
